@@ -2,14 +2,13 @@
   "name": "@getbasset/node-client",
   "version": "1.0.0-beta",
   "description": "Basset node client",
-  "main": "index.js",
+  "main": "lib/basset.js",
   "scripts": {
     "test": "jest"
   },
   "license": "MIT",
   "dependencies": {
-    "request": "^2.88.0",
-    "rimraf": "^2.6.3"
+    "request": "^2.88.0"
   },
   "devDependencies": {
     "jest": "^24.8.0"
