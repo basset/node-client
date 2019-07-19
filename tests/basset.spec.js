@@ -78,7 +78,7 @@ test('getAssets', async () => {
   expect(assets.getAssets).toHaveBeenCalledWith(
     basset.staticDir,
     basset.baseUrl,
-    ['.js', '.map']
+    []
   );
 });
 
