@@ -29,7 +29,7 @@ const git = require('../lib/git');
 const assets = require('../lib/assets');
 
 const makeBasset = () =>
-  new Basset('token', 'staticDir', 'bassetUrl', 'baseUrl');
+  new Basset('token', 'staticDir', 'bassetUrl', {baseUrl: 'baseUrl'});
 
 beforeEach(() => {
   jest.clearAllMocks();
@@ -78,6 +78,7 @@ test('getAssets', async () => {
   expect(assets.getAssets).toHaveBeenCalledWith(
     basset.staticDir,
     basset.baseUrl,
+    ['.js', '.map']
   );
 });
 

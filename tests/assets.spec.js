@@ -21,7 +21,7 @@ jest.mock('../lib/generate-hash', () => ({
 }));
 
 test('walk returns a list of assets', async () => {
-  const data = await assets.walk('/', 'baseUrl');
+  const data = await assets.walk('/', 'baseUrl', ['.js', '.map']);
   expect(data).toEqual(
     expect.objectContaining({
       'baseUrl/1.png': 'fileSha',
@@ -34,7 +34,7 @@ test('walk returns a list of assets', async () => {
 
 test('walk recurisvely searches directories', async () => {
   mockReaddir = [{ name: 'dir', isDirectory: () => true }];
-  const data = await assets.walk('/', 'baseUrl');
+  const data = await assets.walk('/', 'baseUrl', ['.js', '.map']);
   expect(data).toEqual(
     expect.objectContaining({
       'baseUrl/dir/test.png': 'fileSha',
