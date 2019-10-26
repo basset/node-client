@@ -1,19 +1,7 @@
-const assets = require('../lib/assets');
+jest.mock('fs');
+const fs = require('fs');
 
-let mockReaddir = [
-  { name: '1.png', isDirectory: () => false },
-  { name: '2.png', isDirectory: () => false },
-  { name: '3.png', isDirectory: () => false },
-  { name: '4.png', isDirectory: () => false },
-];
-jest.mock('fs', () => ({
-  readdir: (d, opt, cb) => {
-    if (d.includes('dir')) {
-      return cb(null, [{ name: 'test.png', isDirectory: () => false }]);
-    }
-    return cb(null, mockReaddir);
-  },
-}));
+const assets = require('../lib/assets');
 
 jest.mock('../lib/generate-hash', () => ({
   generateHash: jest.fn(() => 'sha'),
@@ -21,6 +9,13 @@ jest.mock('../lib/generate-hash', () => ({
 }));
 
 test('walk returns a list of assets', async () => {
+  fs.stat.mockImplementation((p, cb) => (cb(null, { isDirectory: () => false })));
+  fs.readdir.mockImplementation((p, cb) => cb(null, [
+    '1.png',
+    '2.png',
+    '3.png',
+    '4.png',
+  ]));
   const data = await assets.walk('/', 'baseUrl', []);
   expect(data).toEqual(
     expect.objectContaining({
@@ -33,7 +28,13 @@ test('walk returns a list of assets', async () => {
 });
 
 test('walk recurisvely searches directories', async () => {
-  mockReaddir = [{ name: 'dir', isDirectory: () => true }];
+  fs.readdir
+    .mockImplementationOnce((p, cb) => cb(null, ['dir']))
+    .mockImplementationOnce((p, cb) => cb(null, ['test.png']));
+
+  fs.stat
+    .mockImplementationOnce((p, cb) => (cb(null, { isDirectory: () => true })))
+    .mockImplementationOnce((p, cb) => cb(null, { isDirectory: () => false }));
   const data = await assets.walk('/', 'baseUrl', []);
   expect(data).toEqual(
     expect.objectContaining({
