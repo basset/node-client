@@ -98,9 +98,38 @@ test('uploadSnapshot', async () => {
       body: '{"uploaded": true}',
     }),
   );
-  const result = await client.uploadSnapshot(
+  await client.uploadSnapshot(
     { title: 'title' },
     'relativePath',
+    'sha',
+    'file',
+  );
+});
+
+
+test('uploadImage', async () => {
+  const client = new Client('bassetUrl', 'token');
+  client.request = jest.fn(() =>
+    Promise.resolve({
+      body: '{"uploaded": false}',
+    }),
+  );
+  try {
+    await client.uploadImage(
+      { title: 'title' },
+      'sha',
+      'file',
+    );
+  } catch (error) {
+    expect(error.message).toContain('problem uploading');
+  }
+  client.request = jest.fn(() =>
+    Promise.resolve({
+      body: '{"uploaded": true}',
+    }),
+  );
+  await client.uploadSnapshot(
+    { title: 'title' },
     'sha',
     'file',
   );
