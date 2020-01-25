@@ -21,5 +21,6 @@
     "type": "git",
     "url": "github.com/basset/node-client"
   },
+  "bugs": "https://github.com/basset/node-client/issues",
   "author": ""
 }
