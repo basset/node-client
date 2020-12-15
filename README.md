@@ -1,4 +1,6 @@
 # basset-node-client
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fbasset%2Fnode-client.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fbasset%2Fnode-client?ref=badge_shield)
+
 
 > Node.js client for submitting snapshots to basset
 
@@ -23,3 +25,7 @@ npm install
 ```sh
 npm run test
 ```
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fbasset%2Fnode-client.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fbasset%2Fnode-client?ref=badge_large)
